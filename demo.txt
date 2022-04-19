@@ -1,0 +1,16 @@
+>>> to generete a model using the sequelize-cli with attributes also:
+sequelize model:generate --name User --attributes name:string,email:string,role:string
+
+sequelize model:generate --name Post --attributes body:string
+
+>> use migrations and to add migrations to the db use the command>
+sequelize db:migrate
+
+>> to check the status of the migrations that is running we use the command :
+
+sequelize db:migrate:status:
+> here we see up and down flag with each migrations up means it is already migrated and down means we have to migrate it 
+
+> sequelize db:migrate:undo :: this will undo the latest migration
+> to to undo(means use the latest migrations in all ) we use the all like as follows
+> sequelize db:migrate:undo:all
