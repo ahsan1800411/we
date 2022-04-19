@@ -35,6 +35,7 @@ app.get('/api/users/:uuid', async (req, res) => {
     const { uuid } = req.params;
     const user = await User.findOne({
       where: { uuid },
+      include: 'posts',
     });
     res.status(500).json(user);
   } catch (error) {
@@ -46,6 +47,41 @@ app.get('/api/users/:uuid', async (req, res) => {
 app.get('/posts', async (req, res) => {
   const posts = await Post.findAll({ include: 'user' });
   res.status(200).json(posts);
+});
+
+// update a useer
+app.put('/api/users/:uuid', async (req, res) => {
+  try {
+    const { uuid } = req.params;
+    const { name, email, role } = req.body;
+    const user = await User.findOne({
+      where: { uuid },
+    });
+
+    user.name = name;
+    user.email = email;
+    user.role = role;
+
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+app.delete('/api/users/:uuid', async (req, res) => {
+  try {
+    const { uuid } = req.params;
+    const user = await User.findOne({
+      where: { uuid },
+    });
+
+    await user.destroy();
+    res.status(500).json({ msg: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 app.listen({ port: 4000 }, async () => {

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ Post }) {
-      this.hasMany(Post, { foreignKey: 'userId' });
+      this.hasMany(Post, { foreignKey: 'userId', as: 'posts' });
     }
 
     //  function to hide data that is send to the backend
@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isEmail: { msg: 'Email must be a valid email address' },
+          notEmpty: { msg: 'Email should not be empty' },
+          notNull: { msg: 'Email must be provided' },
+        },
       },
       role: {
         type: DataTypes.STRING,

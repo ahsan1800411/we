@@ -14,3 +14,11 @@ sequelize db:migrate:status:
 > sequelize db:migrate:undo :: this will undo the latest migration
 > to to undo(means use the latest migrations in all ) we use the all like as follows
 > sequelize db:migrate:undo:all
+
+>> to create a seeder :
+sequelize seed:generate --name create-fake-users
+
+
+
+>> postgres query to delete all the users
+delete from users
